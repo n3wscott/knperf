@@ -1,0 +1,7 @@
+
+apiVersion: perf.knative.dev/v1alpha1
+kind: PerfJob
+metadata:
+  name: perf-job-heartbeats
+spec:
+  image: github.com/n3wscott/knperf/cmd/job

@@ -19,32 +19,34 @@ package resources
 import (
 	"fmt"
 
+	perfv1alpha1 "github.com/n3wscott/knperf/pkg/apis/perf/v1alpha1"
 	batchv1 "k8s.io/api/batch/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+func JobLabels(perfJob *perfv1alpha1.PerfJob) map[string]string {
+	return map[string]string{
+		"perfJob": "pj-" + perfJob.Name,
+	}
+}
+
 // MakeJob creates a Job to start or stop a Feed.
-func MakeJob(namespace, image, target string) (*batchv1.Job, error) {
-	labels := map[string]string{
-		"app": "performance-job", // TODO: need more label.
-	}
-
-	podTemplate, err := makePodTemplate(image, target)
-	if err != nil {
-		return nil, err
-	}
-
+func NewJob(perfJob *perfv1alpha1.PerfJob, target string) *batchv1.Job {
+	podTemplate := makePodTemplate(perfJob.Spec.Image, target)
 	return &batchv1.Job{
 		ObjectMeta: metav1.ObjectMeta{
 			GenerateName: "perf-",
-			Namespace:    namespace,
-			Labels:       labels,
+			Namespace:    perfJob.Namespace,
+			Labels:       JobLabels(perfJob),
+			OwnerReferences: []metav1.OwnerReference{
+				*metav1.NewControllerRef(perfJob, perfv1alpha1.SchemeGroupVersion.WithKind("PerfJob")),
+			},
 		},
 		Spec: batchv1.JobSpec{
 			Template: *podTemplate,
 		},
-	}, nil
+	}
 }
 
 func IsJobComplete(job *batchv1.Job) bool {
@@ -84,7 +86,7 @@ func GetFirstTerminationMessage(pod *corev1.Pod) string {
 }
 
 // makePodTemplate creates a pod template for a feed stop or start Job.
-func makePodTemplate(image, target string) (*corev1.PodTemplateSpec, error) {
+func makePodTemplate(image, target string) *corev1.PodTemplateSpec {
 	return &corev1.PodTemplateSpec{
 		ObjectMeta: metav1.ObjectMeta{
 			Annotations: map[string]string{
@@ -118,5 +120,5 @@ func makePodTemplate(image, target string) (*corev1.PodTemplateSpec, error) {
 				}},
 			}},
 		},
-	}, nil
+	}
 }

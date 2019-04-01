@@ -78,14 +78,6 @@
   version = "v0.1.1"
 
 [[projects]]
-  digest = "1:9059915429f7f3a5f18cfa6b7cab9a28721d7ac6db4079a62044aa229eb7f2a8"
-  name = "github.com/gobuffalo/envy"
-  packages = ["."]
-  pruneopts = "NUT"
-  revision = "fa0dfdc10b5366ce365b7d9d1755a03e4e797bc5"
-  version = "v1.6.15"
-
-[[projects]]
   digest = "1:a1b2a5e38f79688ee8250942d5fa960525fceb1024c855c7bc76fa77b0f3cca2"
   name = "github.com/gogo/protobuf"
   packages = [
@@ -135,11 +127,10 @@
   version = "v1.0.0"
 
 [[projects]]
-  digest = "1:d2754cafcab0d22c13541618a8029a70a8959eb3525ff201fe971637e2274cd0"
+  digest = "1:2e3c336fc7fde5c984d2841455a658a6d626450b1754a854b3b32e7a8f49a07a"
   name = "github.com/google/go-cmp"
   packages = [
     "cmp",
-    "cmp/cmpopts",
     "cmp/internal/diff",
     "cmp/internal/function",
     "cmp/internal/value",
@@ -147,13 +138,6 @@
   pruneopts = "NUT"
   revision = "3af367b6b30c263d47e8895973edcca9a49cf029"
   version = "v0.2.0"
-
-[[projects]]
-  digest = "1:c280fbe00363f7c8db868a738b94df33586ce05c10d26578c3adf544d010eb64"
-  name = "github.com/google/go-containerregistry"
-  packages = ["pkg/name"]
-  pruneopts = "NUT"
-  revision = "dbc4da98389f9d0c42eb314c2b346bf1d2a27310"
 
 [[projects]]
   branch = "master"
@@ -229,14 +213,6 @@
   version = "v0.3.7"
 
 [[projects]]
-  digest = "1:da62aa6632d04e080b8a8b85a59ed9ed1550842a0099a55f3ae3a20d02a3745a"
-  name = "github.com/joho/godotenv"
-  packages = ["."]
-  pruneopts = "NUT"
-  revision = "23d116af351c84513e1946b527c88823e476be13"
-  version = "v1.3.0"
-
-[[projects]]
   digest = "1:4e903242fe176238aaa469f59d7035f5abf2aa9acfefb8964ddd203651b574e9"
   name = "github.com/json-iterator/go"
   packages = ["."]
@@ -264,13 +240,9 @@
   revision = "dd3ceb3323922b899a0a913f885fcf59943e7b59"
 
 [[projects]]
-  digest = "1:0b234ed78ddbacdf9c54cbc2e8ddcae26a73ffae4ccf58635e7212b05ed7f8f8"
+  digest = "1:f13d084389da10774955e16f2ff3092bffcf46c120a07e5dcee68ca2fc88a151"
   name = "github.com/knative/eventing"
-  packages = [
-    "pkg/apis/duck/v1alpha1",
-    "pkg/apis/eventing",
-    "pkg/apis/eventing/v1alpha1",
-  ]
+  packages = ["pkg/apis/eventing"]
   pruneopts = "NUT"
   revision = "4d7c827969e5d30400d23b9687c0450079c2e11e"
 
@@ -283,7 +255,7 @@
   revision = "b986f12c1e0058d50b6ea8d33cb51b00206697b7"
 
 [[projects]]
-  digest = "1:0be9b928c520b9eab8c76787be302b39239eaccc8f9ed8d4bb56dbd6a78afb8c"
+  digest = "1:572d803cd82a865b684423545b477301bc7778251eca502f35c780b7b3310be7"
   name = "github.com/knative/pkg"
   packages = [
     "apis",
@@ -294,24 +266,10 @@
     "kmp",
     "logging",
     "logging/logkey",
-    "webhook",
   ]
   pruneopts = "NUT"
   revision = "d4b8b65b25fb5bc7e4782c8198d25ed5fc4203ea"
   source = "github.com/n3wscott/pkg"
-
-[[projects]]
-  digest = "1:a8d21ce0ca98bb38c62bbb45be63ca3b1570370c9c8c7cf10b63b15354a42d94"
-  name = "github.com/knative/serving"
-  packages = [
-    "pkg/apis/autoscaling",
-    "pkg/apis/networking",
-    "pkg/apis/networking/v1alpha1",
-    "pkg/apis/serving",
-    "pkg/apis/serving/v1alpha1",
-  ]
-  pruneopts = "NUT"
-  revision = "99774a5af4c7b688998ed05ec2c1e1f4e97eef70"
 
 [[projects]]
   branch = "master"
@@ -323,14 +281,6 @@
   ]
   pruneopts = "UT"
   revision = "cbd428db90233979afe5fcddd49df5c47fa63552"
-
-[[projects]]
-  digest = "1:56dbf15e091bf7926cb33a57cb6bdfc658fc6d3498d2f76f10a97ce7856f1fde"
-  name = "github.com/markbates/inflect"
-  packages = ["."]
-  pruneopts = "NUT"
-  revision = "24b83195037b3bc61fcda2d28b7b0518bce293b6"
-  version = "v1.0.4"
 
 [[projects]]
   branch = "master"
@@ -365,17 +315,6 @@
   version = "1.0.1"
 
 [[projects]]
-  branch = "master"
-  digest = "1:0d0fd24732ab639b248bf0ce03e187f135d1f4ac214bb827e06fd88489fbfe98"
-  name = "github.com/n3wscott/autotrigger"
-  packages = [
-    "pkg/reconciler/v1alpha1/autotrigger/resources",
-    "pkg/reconciler/v1alpha1/autotrigger/resources/names",
-  ]
-  pruneopts = "NUT"
-  revision = "e5fc1422caed86034f96af83ded86a5b4d9f137b"
-
-[[projects]]
   digest = "1:93b1d84c5fa6d1ea52f4114c37714cddd84d5b78f151b62bb101128dd51399bf"
   name = "github.com/pborman/uuid"
   packages = ["."]
@@ -398,14 +337,6 @@
   pruneopts = "NUT"
   revision = "5f041e8faa004a95c88a202771f4cc3e991971e6"
   version = "v2.0.1"
-
-[[projects]]
-  digest = "1:14715f705ff5dfe0ffd6571d7d201dd8e921030f8070321a79380d8ca4ec1a24"
-  name = "github.com/pkg/errors"
-  packages = ["."]
-  pruneopts = "NUT"
-  revision = "ba968bfe8b2f7e042a574c888954fccecfa385b4"
-  version = "v0.8.1"
 
 [[projects]]
   digest = "1:7c7cfeecd2b7147bcfec48a4bf622b4879e26aec145a9e373ce51d0c23b16f6b"
@@ -452,18 +383,6 @@
   ]
   pruneopts = "NUT"
   revision = "55ae3d9d557340b5bc24cd8aa5f6fa2c2ab31352"
-
-[[projects]]
-  digest = "1:e09ada96a5a41deda4748b1659cc8953961799e798aea557257b56baee4ecaf3"
-  name = "github.com/rogpeppe/go-internal"
-  packages = [
-    "modfile",
-    "module",
-    "semver",
-  ]
-  pruneopts = "NUT"
-  revision = "1cf9852c553c5b7da2d5a4a091129a7822fed0c9"
-  version = "v1.2.2"
 
 [[projects]]
   digest = "1:d917313f309bda80d27274d53985bc65651f81a5b66b820749ac7f8ef061fd04"
@@ -702,18 +621,16 @@
   version = "kubernetes-1.12.6"
 
 [[projects]]
-  digest = "1:58293c3a67fbca0336cd3cc2140dfe630545694452cf73980d2e4b6e6ce2660c"
+  digest = "1:34380339c9c5aac3f538287f796cddb4c5a61140a7cfb7c9de24ae4bb3372318"
   name = "k8s.io/apimachinery"
   packages = [
     "pkg/api/equality",
     "pkg/api/errors",
     "pkg/api/meta",
     "pkg/api/resource",
-    "pkg/api/validation",
     "pkg/apis/meta/internalversion",
     "pkg/apis/meta/v1",
     "pkg/apis/meta/v1/unstructured",
-    "pkg/apis/meta/v1/validation",
     "pkg/apis/meta/v1beta1",
     "pkg/conversion",
     "pkg/conversion/queryparams",
@@ -943,16 +860,12 @@
     "github.com/knative/build/pkg/apis/build/v1alpha1",
     "github.com/knative/eventing-sources/pkg/kncloudevents",
     "github.com/knative/eventing/pkg/apis/eventing",
-    "github.com/knative/eventing/pkg/apis/eventing/v1alpha1",
     "github.com/knative/pkg/apis/duck/v1alpha1",
     "github.com/knative/pkg/logging",
-    "github.com/knative/serving/pkg/apis/serving/v1alpha1",
     "github.com/knative/test-infra/scripts",
     "github.com/knative/test-infra/tools/dep-collector",
-    "github.com/n3wscott/autotrigger/pkg/reconciler/v1alpha1/autotrigger/resources",
     "k8s.io/api/batch/v1",
     "k8s.io/api/core/v1",
-    "k8s.io/apimachinery/pkg/api/equality",
     "k8s.io/apimachinery/pkg/api/errors",
     "k8s.io/apimachinery/pkg/apis/meta/v1",
     "k8s.io/apimachinery/pkg/labels",

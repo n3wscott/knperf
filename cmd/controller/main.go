@@ -16,7 +16,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err := perfcmd.Add(manager); err != nil {
+	if err := perfjob.Add(manager); err != nil {
 		log.Error(err, "could not create controller")
 		os.Exit(1)
 	}

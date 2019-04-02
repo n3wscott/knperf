@@ -90,7 +90,7 @@ func makePodTemplate(image, target string) *corev1.PodTemplateSpec {
 	return &corev1.PodTemplateSpec{
 		ObjectMeta: metav1.ObjectMeta{
 			Annotations: map[string]string{
-				"sidecar.istio.io/inject": "true",
+				"sidecar.istio.io/inject": "false",
 			},
 		},
 		Spec: corev1.PodSpec{

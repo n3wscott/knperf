@@ -33,3 +33,13 @@ spec:
   scope: Namespaced
   subresources:
     status: {}
+  additionalPrinterColumns:
+    - name: Succeeded
+      type: string
+      JSONPath: ".status.conditions[?(@.type==\"Succeeded\")].status"
+    - name: Reason
+      type: string
+      JSONPath: ".status.conditions[?(@.type==\"Succeeded\")].reason"
+    - name: Age
+      type: date
+      JSONPath: .metadata.creationTimestamp

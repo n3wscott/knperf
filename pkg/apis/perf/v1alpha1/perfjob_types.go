@@ -58,21 +58,37 @@ type PerfJobStatus struct {
 
 const (
 	PerfJobConditionSucceeded = duckv1alpha1.ConditionSucceeded
+	BatchJobConditionFinished = "BatchJobFinished"
 )
 
 // GetCondition returns the condition currently associated with the given type, or nil.
-func (bs *PerfJobStatus) GetCondition(t duckv1alpha1.ConditionType) *duckv1alpha1.Condition {
-	return pjCondSet.Manage(bs).GetCondition(t)
+func (ps *PerfJobStatus) GetCondition(t duckv1alpha1.ConditionType) *duckv1alpha1.Condition {
+	return pjCondSet.Manage(ps).GetCondition(t)
 }
 
 // IsReady returns true if the resource is ready overall.
-func (bs *PerfJobStatus) IsReady() bool {
-	return pjCondSet.Manage(bs).IsHappy()
+func (ps *PerfJobStatus) IsReady() bool {
+	return pjCondSet.Manage(ps).IsHappy()
+}
+
+// MarkJobSucceeded sets the BatchJobConditionSucceeded condition to True state.
+func (ps *PerfJobStatus) MarkJobRunning() {
+	pjCondSet.Manage(ps).MarkUnknown(BatchJobConditionFinished, "running", "todo")
+}
+
+// MarkJobSucceeded sets the BatchJobConditionSucceeded condition to True state.
+func (ps *PerfJobStatus) MarkJobSucceeded() {
+	pjCondSet.Manage(ps).MarkTrue(BatchJobConditionFinished)
+}
+
+// MarkJobFailed sets the BatchJobConditionSucceeded condition to True state.
+func (ps *PerfJobStatus) MarkJobFailed() {
+	pjCondSet.Manage(ps).MarkFalse(BatchJobConditionFinished, "failed", "todo")
 }
 
 // InitializeConditions sets relevant unset conditions to Unknown state.
-func (bs *PerfJobStatus) InitializeConditions() {
-	pjCondSet.Manage(bs).InitializeConditions()
+func (ps *PerfJobStatus) InitializeConditions() {
+	pjCondSet.Manage(ps).InitializeConditions()
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -57,7 +57,7 @@ func (r *Reconciler) Reconcile(req controllers.Request) (controllers.Result, err
 	pj := &perfv1alpha1.PerfJob{}
 	err := r.Get(ctx, req.NamespacedName, pj)
 	if errors.IsNotFound(err) {
-		logging.FromContext(ctx).Info("Could not find PerfJob", req.Name)
+		logging.FromContext(ctx).Info("Could not find PerfJob ", req.Name)
 		return controllers.Result{}, nil
 	} else if err != nil {
 		return controllers.Result{}, err
@@ -67,7 +67,9 @@ func (r *Reconciler) Reconcile(req controllers.Request) (controllers.Result, err
 }
 
 func (r *Reconciler) reconcilePerfJob(ctx context.Context, pj *perfv1alpha1.PerfJob) (controllers.Result, error) {
-	//	logger := logging.FromContext(ctx)
+	logger := logging.FromContext(ctx)
+
+	logger.Info("Reconciling ", pj.Name)
 
 	if pj.DeletionTimestamp != nil {
 		// Everything is cleaned up by the garbage collector.
@@ -87,6 +89,20 @@ func (r *Reconciler) reconcilePerfJob(ctx context.Context, pj *perfv1alpha1.Perf
 			return controllers.Result{}, err
 		}
 	} else if err != nil {
+		return controllers.Result{}, err
+	}
+
+	if job.Status.Active == 0 {
+		if job.Status.Succeeded == 1 {
+			pj.Status.MarkJobSucceeded()
+		} else if job.Status.Failed == 1 {
+			pj.Status.MarkJobFailed()
+		}
+	} else {
+		pj.Status.MarkJobRunning()
+	}
+
+	if err := r.Status().Update(ctx, pj); err != nil {
 		return controllers.Result{}, err
 	}
 

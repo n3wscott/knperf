@@ -33,7 +33,7 @@ var (
 func init() {
 	flag.IntVar(&max, "max", 10, "max count")
 	flag.StringVar(&label, "label", "", "a special label")
-	flag.StringVar(&periodStr, "period", "5", "the number of seconds between heartbeats")
+	flag.StringVar(&periodStr, "period", "2", "the number of seconds between heartbeats")
 }
 
 type envConfig struct {

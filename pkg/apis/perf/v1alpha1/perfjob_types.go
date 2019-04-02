@@ -42,10 +42,11 @@ type PerfJob struct {
 var _ runtime.Object = (*PerfJob)(nil)
 
 type PerfJobSpec struct {
-	Image string `json:"image,omitempty"`
+	Image  string `json:"image,omitempty"`
+	Target string `json:"target,omitempty"`
 }
 
-var pjCondSet = duckv1alpha1.NewLivingConditionSet()
+var pjCondSet = duckv1alpha1.NewBatchConditionSet()
 
 // BrokerStatus represents the current state of a Broker.
 type PerfJobStatus struct {
@@ -56,7 +57,7 @@ type PerfJobStatus struct {
 }
 
 const (
-	PerfJobConditionReady = duckv1alpha1.ConditionReady
+	PerfJobConditionSucceeded = duckv1alpha1.ConditionSucceeded
 )
 
 // GetCondition returns the condition currently associated with the given type, or nil.

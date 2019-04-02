@@ -4,7 +4,10 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"log"
+	"net/http"
+	"net/url"
 	"os"
 	"strconv"
 	"time"
@@ -23,7 +26,6 @@ type Heartbeat struct {
 
 var (
 	max       int
-	sink      string
 	label     string
 	periodStr string
 )
@@ -35,8 +37,8 @@ func init() {
 }
 
 type envConfig struct {
-	// Sink URL where to send heartbeat cloudevents
-	Sink string `envconfig:"SINK"`
+	// Target URL where to send heartbeat cloudevents
+	Target string `envconfig:"TARGET" required:"true"`
 
 	// Name of this pod.
 	Name string `envconfig:"POD_NAME" required:"true"`
@@ -54,11 +56,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	if env.Sink != "" {
-		sink = env.Sink
-	}
-
-	c, err := kncloudevents.NewDefaultClient(sink)
+	c, err := kncloudevents.NewDefaultClient(env.Target)
 	if err != nil {
 		log.Fatalf("failed to create client: %s", err.Error())
 	}
@@ -71,7 +69,7 @@ func main() {
 	}
 
 	source := types.ParseURLRef(
-		fmt.Sprintf("https://github.com/knative/eventing-sources/cmd/heartbeats/#%s/%s", env.Namespace, env.Name))
+		fmt.Sprintf("https://github.com/n3wscott/knperf/cmd/heartbeats/#%s/%s", env.Namespace, env.Name))
 	log.Printf("Heartbeats Source: %s", source)
 
 	if len(label) > 0 && label[0] == '"' {
@@ -104,4 +102,22 @@ func main() {
 		// Wait for next tick
 		<-ticker.C
 	}
+
+	log.Printf("quiting...")
+
+	quitURL, _ := url.Parse("http://localhost:15000/quitquitquit")
+
+	req := &http.Request{
+		Method: http.MethodPost,
+		URL:    quitURL,
+	}
+
+	if resp, err := http.DefaultClient.Do(req); err != nil {
+		log.Printf("[ERROR] failed to call istio: %s", err)
+	} else {
+		body, _ := ioutil.ReadAll(resp.Body)
+		log.Printf("istio quituquitquit: %s", string(body))
+	}
+
+	os.Exit(0)
 }

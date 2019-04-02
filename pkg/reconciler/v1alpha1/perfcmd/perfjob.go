@@ -18,6 +18,7 @@ package perfjob
 
 import (
 	"context"
+	"fmt"
 	"github.com/n3wscott/knperf/pkg/reconciler/v1alpha1/perfcmd/resources"
 	"k8s.io/api/batch/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
@@ -33,6 +34,11 @@ import (
 )
 
 func Add(manager controllers.Manager) error {
+
+	if err := perfv1alpha1.AddToScheme(manager.GetScheme()); err != nil {
+		fmt.Print("failed to add scheme to manager")
+	}
+
 	return controllers.
 		NewControllerManagedBy(manager).
 		For(&perfv1alpha1.PerfJob{}).
@@ -70,7 +76,7 @@ func (r *Reconciler) reconcilePerfJob(ctx context.Context, pj *perfv1alpha1.Perf
 
 	pj.Status.InitializeConditions()
 
-	newJob := resources.NewJob(pj, "http://default-broker/") // TODO: fixie fixie
+	newJob := resources.NewJob(pj)
 
 	job, err := r.getJob(ctx, pj, labels.SelectorFromSet(resources.JobLabels(pj)))
 	// If the resource doesn't exist, we'll create it

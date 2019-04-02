@@ -232,13 +232,6 @@
   revision = "dd3ceb3323922b899a0a913f885fcf59943e7b59"
 
 [[projects]]
-  digest = "1:f13d084389da10774955e16f2ff3092bffcf46c120a07e5dcee68ca2fc88a151"
-  name = "github.com/knative/eventing"
-  packages = ["pkg/apis/eventing"]
-  pruneopts = "NUT"
-  revision = "4d7c827969e5d30400d23b9687c0450079c2e11e"
-
-[[projects]]
   branch = "master"
   digest = "1:067a241f3d8511e43ae1df08337a3cf2475d82b90c31cb4c43e4936cd5808d3c"
   name = "github.com/knative/eventing-sources"
@@ -850,7 +843,6 @@
     "github.com/kelseyhightower/envconfig",
     "github.com/knative/build/pkg/apis/build/v1alpha1",
     "github.com/knative/eventing-sources/pkg/kncloudevents",
-    "github.com/knative/eventing/pkg/apis/eventing",
     "github.com/knative/pkg/apis/duck/v1alpha1",
     "github.com/knative/pkg/logging",
     "github.com/knative/test-infra/scripts",

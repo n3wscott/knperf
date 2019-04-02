@@ -4,4 +4,5 @@ kind: PerfJob
 metadata:
   name: perf-job-heartbeats
 spec:
-  image: github.com/n3wscott/knperf/cmd/job
+  image: github.com/n3wscott/knperf/cmd/heartbeats
+  target: http://default-broker.default.svc.cluster.local/

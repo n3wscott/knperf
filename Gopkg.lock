@@ -2,14 +2,6 @@
 
 
 [[projects]]
-  digest = "1:680b63a131506e668818d630d3ca36123ff290afa0afc9f4be21940adca3f27d"
-  name = "github.com/appscode/jsonpatch"
-  packages = ["."]
-  pruneopts = "NUT"
-  revision = "7c0e3b262f30165a8ec3d0b4c6059fd92703bfb2"
-  version = "1.0.0"
-
-[[projects]]
   branch = "master"
   digest = "1:707ebe952a8b3d00b343c01536c79c73771d100f63ec6babeaed5c79e2b8a8dd"
   name = "github.com/beorn7/perks"
@@ -255,7 +247,7 @@
   revision = "b986f12c1e0058d50b6ea8d33cb51b00206697b7"
 
 [[projects]]
-  digest = "1:572d803cd82a865b684423545b477301bc7778251eca502f35c780b7b3310be7"
+  digest = "1:333fd2bfc3f9836dea467a8976fa8720a9042b295180309ee63d5a5e5ff83585"
   name = "github.com/knative/pkg"
   packages = [
     "apis",
@@ -268,8 +260,7 @@
     "logging/logkey",
   ]
   pruneopts = "NUT"
-  revision = "d4b8b65b25fb5bc7e4782c8198d25ed5fc4203ea"
-  source = "github.com/n3wscott/pkg"
+  revision = "b032768e6dee2ccec842e338b8590c0838a73639"
 
 [[projects]]
   branch = "master"
@@ -811,7 +802,7 @@
   revision = "5e45bb682580c9be5ffa4d27d367f0eeba125c7b"
 
 [[projects]]
-  digest = "1:c4e311b38e192acdb666ad937e9e0cda7246d8629cf21ae52abdeb8ae1d57444"
+  digest = "1:78e542c1b01e8f29c565398932ed913b6a51a18df93f054d12aa8132974ac02e"
   name = "sigs.k8s.io/controller-runtime"
   packages = [
     ".",
@@ -847,8 +838,8 @@
     "pkg/webhook/types",
   ]
   pruneopts = "NUT"
-  revision = "12d98582e72927b6cd0123e2b4e819f9341ce62c"
-  version = "v0.1.10"
+  revision = "392f43f890343e1fbefb0bbe3cbf9314e64565ba"
+  source = "github.com/grantr/controller-runtime"
 
 [solve-meta]
   analyzer-name = "dep"

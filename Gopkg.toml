@@ -1,4 +1,5 @@
 required = [
+  "sigs.k8s.io/controller-runtime",
   "k8s.io/apimachinery/pkg/util/sets/types",
   "k8s.io/code-generator/cmd/deepcopy-gen",
   "k8s.io/code-generator/cmd/defaulter-gen",
@@ -28,13 +29,12 @@ required = [
 [[override]]
   name = "github.com/knative/pkg"
   # HEAD as of 2019-03-21
-  source = "github.com/n3wscott/pkg"
-  revision = "d4b8b65b25fb5bc7e4782c8198d25ed5fc4203ea"
+  revision = "b032768e6dee2ccec842e338b8590c0838a73639"
 
-[[constraint]]
-  name = "github.com/knative/serving"
-  # HEAD as of 2019-03-21
-  revision = "99774a5af4c7b688998ed05ec2c1e1f4e97eef70"
+#[[constraint]]
+#  name = "github.com/knative/serving"
+#  # HEAD as of 2019-03-21
+#  revision = "99774a5af4c7b688998ed05ec2c1e1f4e97eef70"
 
 [[constraint]]
   name = "github.com/knative/eventing"
@@ -59,4 +59,5 @@ required = [
 
 [[constraint]]
   name = "sigs.k8s.io/controller-runtime"
-  version = "0.1.9"
+  revision = "392f43f890343e1fbefb0bbe3cbf9314e64565ba"
+  source = "github.com/grantr/controller-runtime"

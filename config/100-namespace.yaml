@@ -14,7 +14,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: knative-performace
+  name: knative-performance
   labels:
     knative-eventing-injection: enabled
-#    istio-injection: enabled
+    istio-injection: enabled

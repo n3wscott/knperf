@@ -19,7 +19,7 @@ metadata:
     app: controller
     eventing.knative.dev/release: devel
   name: controller
-  namespace: knative-performace
+  namespace: knative-performance
 spec:
   ports:
   - name: metrics

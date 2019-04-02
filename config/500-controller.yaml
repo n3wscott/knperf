@@ -16,7 +16,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: knperf-controller
-  namespace: knative-performace
+  namespace: knative-performance
   labels:
     perf.knative.dev/release: devel
 spec:

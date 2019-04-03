@@ -758,7 +758,7 @@
     "pkg/util",
   ]
   pruneopts = "T"
-  revision = "b1289fc74931d4b6b04bd1a259acfc88a2cb0a66"
+  revision = ""
   version = "kubernetes-1.12.6"
 
 [[projects]]
@@ -839,7 +839,9 @@
   analyzer-version = 1
   input-imports = [
     "github.com/cloudevents/sdk-go/pkg/cloudevents",
+    "github.com/cloudevents/sdk-go/pkg/cloudevents/client",
     "github.com/cloudevents/sdk-go/pkg/cloudevents/types",
+    "github.com/google/uuid",
     "github.com/kelseyhightower/envconfig",
     "github.com/knative/build/pkg/apis/build/v1alpha1",
     "github.com/knative/eventing-sources/pkg/kncloudevents",

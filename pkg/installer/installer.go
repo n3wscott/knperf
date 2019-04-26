@@ -35,9 +35,9 @@ func (r *Installer) Do(verb string) error {
 	// TODO: might need to take the paths and apply a namespace.
 
 	switch strings.ToLower(verb) {
-	case "create", "install", "apply", "start":
+	case "create", "setup", "install", "apply", "start":
 		return r.manifest.ApplyAll()
-	case "delete", "uninstall", "stop":
+	case "delete", "teardown", "uninstall", "unapply", "stop":
 		return r.manifest.DeleteAll()
 	default:
 		return fmt.Errorf("unknown verb: %s", verb)

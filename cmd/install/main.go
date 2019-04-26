@@ -23,6 +23,7 @@ var (
 type envConfig struct {
 	Action    string `envconfig:"ACTION" required:"true"`
 	Namespace string `envconfig:"NAMESPACE" required:"true"`
+	Yaml      string `envconfig:"YAML_PATHS"`
 }
 
 // TODO: move all this to ENV VARS

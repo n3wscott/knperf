@@ -19,7 +19,7 @@ metadata:
 rules:
   # TODO: update
   - apiGroups: [""]
-    resources: ["namespaces", "secrets", "configmaps", "services", "events", "serviceaccounts"]
+    resources: ["namespaces", "pods", "secrets", "configmaps", "services", "events", "serviceaccounts"]
     verbs: ["get", "list", "create", "update", "delete", "patch", "watch"]
   - apiGroups: ["serving.knative.dev"]
     resources: ["routes", "routes/status", "services", "services/status"]

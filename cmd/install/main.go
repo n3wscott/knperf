@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	yaml "github.com/jcrossley3/manifestival/pkg/manifestival"
+	"github.com/kelseyhightower/envconfig"
 	"github.com/n3wscott/knperf/pkg/config"
 	"github.com/n3wscott/knperf/pkg/installer"
 	"k8s.io/client-go/dynamic"
@@ -20,6 +20,13 @@ var (
 	kubeconfig string
 )
 
+type envConfig struct {
+	Action    string `envconfig:"ACTION" required:"true"`
+	Namespace string `envconfig:"NAMESPACE" required:"true"`
+}
+
+// TODO: move all this to ENV VARS
+
 func init() {
 	flag.StringVar(&cluster, "cluster", "",
 		"Provide the cluster to test against. Defaults to the current cluster in kubeconfig.")
@@ -31,25 +38,22 @@ func init() {
 
 	flag.StringVar(&kubeconfig, "kubeconfig", defaultKubeconfig,
 		"Provide the path to the `kubeconfig` file.")
-}
 
-var ns = "default"
+}
 
 func main() {
 	flag.Parse()
 
-	cfg := config.BuildClientConfigOrDie(kubeconfig, cluster)
-	dc := dynamic.NewForConfigOrDie(cfg)
-	i := installer.NewInstaller(ns, dc)
-
-	mf, err := yaml.NewYamlManifest("/var/run/ko/install", true, dc)
-
-	if err != nil {
-		log.Fatalf("could not install: %v", err)
+	var env envConfig
+	if err := envconfig.Process("", &env); err != nil {
+		log.Printf("[ERROR] Failed to process env var: %s", err)
+		os.Exit(1)
 	}
-	i.Manifest = &mf
 
-	if err := i.Install(); err != nil {
+	cfg := config.BuildClientConfigOrDie(kubeconfig, cluster)
+	i := installer.NewInstaller(env.Namespace, dynamic.NewForConfigOrDie(cfg))
+
+	if err := i.Do(env.Action); err != nil {
 		log.Fatalf("could not install: %v", err)
 	}
 

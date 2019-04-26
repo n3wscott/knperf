@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: install-pod
+  namespace: default
+spec:
+  serviceAccountName: install-script
+  containers:
+    - image: github.com/n3wscott/knperf/cmd/install
+      name: install
+      env:
+      - name: ACTION
+        value: install
+      - name: NAMESPACE
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.namespace
+  restartPolicy: Never

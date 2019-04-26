@@ -4,6 +4,8 @@ metadata:
   name: install-pod
   namespace: default
 spec:
+  serviceAccountName: install-script
   containers:
     - image: github.com/n3wscott/knperf/cmd/install
       name: install
+  restartPolicy: Never

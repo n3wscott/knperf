@@ -213,11 +213,11 @@
   version = "v0.3.7"
 
 [[projects]]
-  digest = "1:69d6d988b41f7dd424a1f1156b7094472aa1e439165f67cb4d3ebc57e2ad8ef9"
+  digest = "1:e8c27ef37de85711f491f6d2fa4170317e758410c5c43b28d3bffd6422200fa6"
   name = "github.com/jcrossley3/manifestival"
   packages = ["pkg/manifestival"]
   pruneopts = "NUT"
-  revision = "57a2ea6a2817e507147ccd4423bd3ad02f3d20cc"
+  revision = "9157edb8aeef0b2d88b33634e5053c45131ea85e"
   source = "github.com/n3wscott/manifestival"
 
 [[projects]]

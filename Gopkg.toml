@@ -59,7 +59,7 @@ required = [
 
 [[constraint]]
   name = "github.com/jcrossley3/manifestival"
-  revision = "57a2ea6a2817e507147ccd4423bd3ad02f3d20cc"
+  revision = "9157edb8aeef0b2d88b33634e5053c45131ea85e"
   source = "github.com/n3wscott/manifestival"
 
 

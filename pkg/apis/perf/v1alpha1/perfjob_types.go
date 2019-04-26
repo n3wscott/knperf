@@ -44,7 +44,7 @@ var _ runtime.Object = (*PerfJob)(nil)
 type PerfJobSpec struct {
 	TestImage    string `json:"testImage,omitempty"`
 	ControlImage string `json:"ctrlImage,omitempty"`
-	Exclusive    bool   `json:"exclusive,omitempty"`
+	Exclusive    *bool  `json:"exclusive,omitempty"`
 	Target       string `json:"target,omitempty"`
 }
 

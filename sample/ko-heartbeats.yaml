@@ -3,7 +3,7 @@ kind: PerfJob
 metadata:
   generateName: heartbeats-
 spec:
-  image: gcr.io/plori-nicholss/heartbeats-c25e1ae89d04509853c80888559f6d6f@sha256:63701621cdb91ca0243d8e9b7f540a0d2eec9d467e0812f47a336767e315f42e
+  testImage: gcr.io/plori-nicholss/heartbeats-c25e1ae89d04509853c80888559f6d6f@sha256:63701621cdb91ca0243d8e9b7f540a0d2eec9d467e0812f47a336767e315f42e
   target: http://default-broker-proxy.default.svc.cluster.local/
 
 ---

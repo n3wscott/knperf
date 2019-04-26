@@ -58,6 +58,12 @@ required = [
   version = "kubernetes-1.12.6"
 
 [[constraint]]
+  name = "github.com/jcrossley3/manifestival"
+  revision = "57a2ea6a2817e507147ccd4423bd3ad02f3d20cc"
+  source = "github.com/n3wscott/manifestival"
+
+
+[[constraint]]
   name = "sigs.k8s.io/controller-runtime"
   revision = "392f43f890343e1fbefb0bbe3cbf9314e64565ba"
   source = "github.com/grantr/controller-runtime"

@@ -42,8 +42,10 @@ type PerfJob struct {
 var _ runtime.Object = (*PerfJob)(nil)
 
 type PerfJobSpec struct {
-	Image  string `json:"image,omitempty"`
-	Target string `json:"target,omitempty"`
+	TestImage    string `json:"testImage,omitempty"`
+	ControlImage string `json:"ctrlImage,omitempty"`
+	Exclusive    bool   `json:"exclusive,omitempty"`
+	Target       string `json:"target,omitempty"`
 }
 
 var pjCondSet = duckv1alpha1.NewBatchConditionSet()

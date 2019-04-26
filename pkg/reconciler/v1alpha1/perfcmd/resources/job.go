@@ -33,7 +33,7 @@ func JobLabels(perfJob *perfv1alpha1.PerfJob) map[string]string {
 
 // MakeJob creates a Job to start or stop a Feed.
 func NewJob(perfJob *perfv1alpha1.PerfJob) *batchv1.Job {
-	podTemplate := makePodTemplate(perfJob.Spec.Image, perfJob.Spec.Target)
+	podTemplate := makePodTemplate(perfJob.Spec.TestImage, perfJob.Spec.Target)
 	return &batchv1.Job{
 		ObjectMeta: metav1.ObjectMeta{
 			GenerateName: "perf-",

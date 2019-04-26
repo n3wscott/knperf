@@ -2,7 +2,7 @@
 apiVersion: perf.knative.dev/v1alpha1
 kind: PerfJob
 metadata:
-  generateName: heartbeats-
+  generateName: installer-
 spec:
-  testImage: github.com/n3wscott/knperf/cmd/heartbeats
+  testImage: github.com/n3wscott/knperf/cmd/install
   target: http://default-broker-proxy.default.svc.cluster.local/

@@ -4,5 +4,5 @@ kind: PerfJob
 metadata:
   generateName: heartbeats-
 spec:
-  image: github.com/n3wscott/knperf/cmd/heartbeats
+  testImage: github.com/n3wscott/knperf/cmd/heartbeats
   target: http://default-broker-proxy.default.svc.cluster.local/

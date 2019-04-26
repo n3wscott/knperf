@@ -1,11 +1,18 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: install-pod
+  name: uninstall-pod
   namespace: default
 spec:
   serviceAccountName: install-script
   containers:
     - image: github.com/n3wscott/knperf/cmd/install
-      name: install
+      name: uninstall
+      env:
+      - name: ACTION
+        value: uninstall
+      - name: NAMESPACE
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.namespace
   restartPolicy: Never

@@ -25,20 +25,41 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func JobLabels(perfJob *perfv1alpha1.PerfJob) map[string]string {
+func JobLabels(name, action string) map[string]string {
 	return map[string]string{
-		"perfJob": "pj-" + perfJob.Name,
+		"perfJob": "pj-" + name + "-" + action,
 	}
 }
 
-// MakeJob creates a Job to start or stop a Feed.
-func NewJob(perfJob *perfv1alpha1.PerfJob) *batchv1.Job {
+// MakeTestJob creates a Job.
+func NewTestJob(perfJob *perfv1alpha1.PerfJob) *batchv1.Job {
 	podTemplate := makePodTemplate(perfJob.Spec.TestImage, perfJob.Spec.Target)
 	return &batchv1.Job{
 		ObjectMeta: metav1.ObjectMeta{
-			GenerateName: "perf-",
+			GenerateName: "pt-" + perfJob.Name + "-",
 			Namespace:    perfJob.Namespace,
-			Labels:       JobLabels(perfJob),
+			Labels:       JobLabels(perfJob.Name, "test"),
+			OwnerReferences: []metav1.OwnerReference{
+				*metav1.NewControllerRef(perfJob, perfv1alpha1.SchemeGroupVersion.WithKind("PerfJob")),
+			},
+		},
+		Spec: batchv1.JobSpec{
+			Template: *podTemplate,
+		},
+	}
+}
+
+// NewCtrlJob creates a Job.
+func NewCtrlJob(perfJob *perfv1alpha1.PerfJob, action string) *batchv1.Job {
+	podTemplate := makePodTemplate(perfJob.Spec.ControlImage, perfJob.Spec.Target, corev1.EnvVar{
+		Name:  "ACTION",
+		Value: action,
+	})
+	return &batchv1.Job{
+		ObjectMeta: metav1.ObjectMeta{
+			GenerateName: "ct-" + perfJob.Name + "-",
+			Namespace:    perfJob.Namespace,
+			Labels:       JobLabels(perfJob.Name, action),
 			OwnerReferences: []metav1.OwnerReference{
 				*metav1.NewControllerRef(perfJob, perfv1alpha1.SchemeGroupVersion.WithKind("PerfJob")),
 			},
@@ -86,7 +107,30 @@ func GetFirstTerminationMessage(pod *corev1.Pod) string {
 }
 
 // makePodTemplate creates a pod template for a feed stop or start Job.
-func makePodTemplate(image, target string) *corev1.PodTemplateSpec {
+func makePodTemplate(image, target string, extEnv ...corev1.EnvVar) *corev1.PodTemplateSpec {
+	env := []corev1.EnvVar{{
+		Name:  "TARGET",
+		Value: target,
+	}, {
+		Name: "POD_NAME",
+		ValueFrom: &corev1.EnvVarSource{
+			FieldRef: &corev1.ObjectFieldSelector{
+				FieldPath: "metadata.name",
+			},
+		},
+	}, {
+		Name: "POD_NAMESPACE",
+		ValueFrom: &corev1.EnvVarSource{
+			FieldRef: &corev1.ObjectFieldSelector{
+				FieldPath: "metadata.namespace",
+			},
+		},
+	}}
+
+	if len(extEnv) > 0 {
+		env = append(env, extEnv...)
+	}
+
 	return &corev1.PodTemplateSpec{
 		ObjectMeta: metav1.ObjectMeta{
 			Annotations: map[string]string{
@@ -100,24 +144,7 @@ func makePodTemplate(image, target string) *corev1.PodTemplateSpec {
 				Name:            "job",
 				Image:           image,
 				ImagePullPolicy: "Always",
-				Env: []corev1.EnvVar{{
-					Name:  "TARGET",
-					Value: target,
-				}, {
-					Name: "POD_NAME",
-					ValueFrom: &corev1.EnvVarSource{
-						FieldRef: &corev1.ObjectFieldSelector{
-							FieldPath: "metadata.name",
-						},
-					},
-				}, {
-					Name: "POD_NAMESPACE",
-					ValueFrom: &corev1.EnvVarSource{
-						FieldRef: &corev1.ObjectFieldSelector{
-							FieldPath: "metadata.namespace",
-						},
-					},
-				}},
+				Env:             env,
 			}},
 		},
 	}

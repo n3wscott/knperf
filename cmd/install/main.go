@@ -22,8 +22,8 @@ var (
 
 type envConfig struct {
 	Action    string `envconfig:"ACTION" required:"true"`
-	Namespace string `envconfig:"NAMESPACE" required:"true"`
-	Yaml      string `envconfig:"YAML_PATHS"`
+	Namespace string `envconfig:"POD_NAMESPACE" required:"true"`
+	Yamls     string `envconfig:"YAMLS"`
 }
 
 // TODO: move all this to ENV VARS
@@ -52,7 +52,7 @@ func main() {
 	}
 
 	cfg := config.BuildClientConfigOrDie(kubeconfig, cluster)
-	i := installer.NewInstaller(env.Namespace, dynamic.NewForConfigOrDie(cfg))
+	i := installer.NewInstaller(env.Namespace, dynamic.NewForConfigOrDie(cfg), env.Yamls)
 
 	if err := i.Do(env.Action); err != nil {
 		log.Fatalf("could not install: %v", err)

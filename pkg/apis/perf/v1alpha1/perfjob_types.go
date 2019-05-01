@@ -56,6 +56,8 @@ type PerfJobStatus struct {
 	// * ObservedGeneration - the 'Generation' of the Service that was last processed by the controller.
 	// * Conditions - the latest available observations of a resource's current state.
 	duckv1alpha1.Status `json:",inline"`
+
+	Phase string
 }
 
 const (

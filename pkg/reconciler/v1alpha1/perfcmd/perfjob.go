@@ -78,9 +78,13 @@ func (r *Reconciler) reconcilePerfJob(ctx context.Context, pj *perfv1alpha1.Perf
 
 	pj.Status.InitializeConditions()
 
-	newJob := resources.NewJob(pj)
+	if pj.Status.Phase == "" {
+		pj.Status.Phase = nextPhase(pj.Status.Phase)
+	}
 
-	job, err := r.getJob(ctx, pj, labels.SelectorFromSet(resources.JobLabels(pj)))
+	newJob := r.jobForPhase(ctx, pj)
+
+	job, err := r.getJob(ctx, pj, labels.SelectorFromSet(resources.JobLabels(pj.Name, "test")))
 	// If the resource doesn't exist, we'll create it
 	if k8serrors.IsNotFound(err) {
 		job = newJob
@@ -107,6 +111,28 @@ func (r *Reconciler) reconcilePerfJob(ctx context.Context, pj *perfv1alpha1.Perf
 	}
 
 	return controllers.Result{}, nil
+}
+
+func nextPhase(phase string) string {
+	switch phase {
+	case "install":
+		return "test"
+	case "test":
+		return "uninstall"
+	case "uninstall":
+		return "done"
+	default:
+		return "install"
+	}
+}
+
+func (r *Reconciler) jobForPhase(ctx context.Context, pj *perfv1alpha1.PerfJob) *v1.Job {
+	switch pj.Status.Phase {
+	case "", "create":
+		return resources.NewCtrlJob(pj, "create")
+	default:
+		return resources.NewTestJob(pj)
+	}
 }
 
 // getChannel returns the Channel object for Broker 'b' if exists, otherwise it returns an error.
